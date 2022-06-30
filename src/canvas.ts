@@ -1,3 +1,5 @@
+import { Game } from './types';
+
 interface GetRandomPosition {
   canvas: HTMLCanvasElement;
   size: number;
@@ -14,4 +16,9 @@ export function getCanvas() {
   canvas.width = 500;
   canvas.height = 500;
   return canvas;
+}
+
+export function clearCanvas(game: Game) {
+  const { context, canvas } = game;
+  context.clearRect(0, 0, canvas.width, canvas.height);
 }

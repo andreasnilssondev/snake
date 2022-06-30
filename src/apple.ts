@@ -1,5 +1,6 @@
 import { getRandomPosition } from './canvas';
-import { Apple } from './types';
+import { Game } from './types';
+import { checkFood } from './utils/checkFood';
 
 export function createApple(canvas: HTMLCanvasElement) {
   const size = 25;
@@ -7,13 +8,13 @@ export function createApple(canvas: HTMLCanvasElement) {
   return { x, y, size };
 }
 
-interface DrawApple {
-  apple: Apple;
-  context: CanvasRenderingContext2D;
-}
-
-export function drawApple({ apple, context }: DrawApple) {
+export function drawApple(game: Game) {
+  const { apple, context } = game;
   const { x, y, size } = apple;
   context.fillStyle = 'red';
   context.fillRect(x, y, size, size);
+}
+
+export function updateApple(game: Game) {
+  checkFood(game);
 }

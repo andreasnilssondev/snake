@@ -1,8 +1,8 @@
-import { checkFood } from './utils/checkFood';
-import { moveSnake } from './snake';
+import { updateSnake } from './snake';
+import { updateApple } from './apple';
 import { Game } from './types';
 
 export function update(game: Game) {
-  game.snake = moveSnake(game);
-  checkFood(game);
+  updateSnake(game);
+  updateApple(game);
 }

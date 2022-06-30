@@ -24,3 +24,11 @@ export function setGameOver(game: Game) {
   game.gameOver = true;
   hidePlayButton();
 }
+
+export function drawGameOver(game: Game) {
+  const { context, canvas } = game;
+  context.font = '40px Arial';
+  context.textAlign = 'center';
+  context.fillStyle = '#888';
+  context.fillText('Game over', canvas.width / 2, canvas.height / 3);
+}

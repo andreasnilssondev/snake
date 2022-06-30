@@ -21,12 +21,9 @@ export function createSnake() {
   };
 }
 
-interface DrawSnake {
-  snake: Snake;
-  context: CanvasRenderingContext2D;
-}
+export function drawSnake(game: Game) {
+  const { snake, context } = game;
 
-export function drawSnake({ snake, context }: DrawSnake) {
   context.fillStyle = '#388538';
   context.fillRect(snake.x + 1, snake.y + 1, snake.size - 2, snake.size - 2);
 
@@ -77,4 +74,8 @@ export function moveSnake(game: Game) {
 export function growSnake(snake: Snake): Snake {
   snake.shouldGrow = true;
   return snake;
+}
+
+export function updateSnake(game: Game) {
+  game.snake = moveSnake(game);
 }
