@@ -11,7 +11,13 @@ export function createSnake() {
     { y, x: x - size },
   ];
   const shouldGrow = false;
-  return { x, y, size, tail, shouldGrow };
+  return {
+    x,
+    y,
+    size,
+    tail,
+    shouldGrow,
+  };
 }
 
 interface DrawSnake {
@@ -23,9 +29,9 @@ export function drawSnake({ snake, context }: DrawSnake) {
   context.fillStyle = '#388538';
   context.fillRect(snake.x + 1, snake.y + 1, snake.size - 2, snake.size - 2);
 
-  for (const piece of snake.tail) {
+  snake.tail.forEach(piece => {
     context.fillRect(piece.x + 1, piece.y + 1, snake.size - 2, snake.size - 2);
-  }
+  });
 }
 
 interface MoveSnake {
