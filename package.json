@@ -2,6 +2,7 @@
   "name": "snake",
   "private": true,
   "version": "0.1.0",
+  "type": "module",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -15,10 +16,10 @@
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-prettier": "^4.1.0",
+    "eslint-plugin-prettier": "^4.2.1",
     "prettier": "^2.7.1",
     "prettier-eslint": "^15.0.1",
-    "typescript": "^4.5.4",
+    "typescript": "^4.7.4",
     "vite": "^2.9.13"
   }
 }
