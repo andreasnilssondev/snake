@@ -2,13 +2,10 @@ import { update } from './update';
 import { draw } from './draw';
 import { Game } from './types';
 
-interface Options {
-  fps: number;
-  speed: number;
-}
+const FPS = 1000 / 30;
+const SPEED = 2;
 
-export function loop(game: Game, options?: Options) {
-  const { fps = 1000 / 30, speed = 2 } = options || {};
+export function loop(game: Game) {
   let startTime = 0;
   let time = 0;
   let lastInterval = 0;
@@ -23,7 +20,7 @@ export function loop(game: Game, options?: Options) {
 
     time = timestamp - startTime;
 
-    if (time >= lastInterval + fps * (10 / speed)) {
+    if (time >= lastInterval + FPS * (10 / SPEED)) {
       lastInterval = time;
       update(game);
       draw(game);

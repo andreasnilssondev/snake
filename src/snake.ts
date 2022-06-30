@@ -1,5 +1,6 @@
 import { DIRECTIONS } from './controls';
-import { Controls, Snake } from './types';
+import { Game, Snake } from './types';
+import { setGameOver } from './game';
 
 export function createSnake() {
   const size = 25;
@@ -34,14 +35,22 @@ export function drawSnake({ snake, context }: DrawSnake) {
   });
 }
 
-interface MoveSnake {
-  snake: Snake;
-  controls: Controls;
-  canvas: HTMLCanvasElement;
-  setGameOver: () => void;
+function isWallCollision(snake: Snake, canvas: HTMLCanvasElement) {
+  return (
+    snake.x < 0 ||
+    snake.x > canvas.width - snake.size ||
+    snake.y < 0 ||
+    snake.y > canvas.height - snake.size
+  );
 }
 
-export function moveSnake({ snake, controls, canvas, setGameOver }: MoveSnake) {
+function isSelfCollision(snake: Snake) {
+  return snake.tail.some(position => snake.x === position.x && snake.y === position.y);
+}
+
+export function moveSnake(game: Game) {
+  const { snake, controls, canvas } = game;
+
   if (!snake.shouldGrow) {
     snake.tail.splice(0, 1);
   }
@@ -54,19 +63,12 @@ export function moveSnake({ snake, controls, canvas, setGameOver }: MoveSnake) {
   snake.y += yDirection * snake.size;
   controls.lastKey = controls.currentKey;
 
-  // If hitting a wall
-  if (
-    snake.x < 0 ||
-    snake.x > canvas.width - snake.size ||
-    snake.y < 0 ||
-    snake.y > canvas.height - snake.size
-  ) {
-    setGameOver();
+  if (isWallCollision(snake, canvas)) {
+    setGameOver(game);
   }
 
-  // If hitting itself
-  if (snake.tail.some(position => snake.x === position.x && snake.y === position.y)) {
-    setGameOver();
+  if (isSelfCollision(snake)) {
+    setGameOver(game);
   }
 
   return snake;

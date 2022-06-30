@@ -6,10 +6,6 @@ import { Game } from './types';
 export function draw(game: Game) {
   const { snake, apple, canvas, context, gameOver } = game;
 
-  if (!context) {
-    return;
-  }
-
   clearCanvas({ context, canvas });
 
   if (gameOver) {
