@@ -1,9 +1,15 @@
-import { getRandomPosition } from '../core/canvas';
 import { Game } from '../types';
+
+export function getRandomPosition(canvas: HTMLCanvasElement) {
+  const size = canvas.width / 20;
+  const x = Math.floor(Math.random() * (canvas.width / size)) * size;
+  const y = Math.floor(Math.random() * (canvas.height / size)) * size;
+  return { x, y };
+}
 
 export function createApple(canvas: HTMLCanvasElement) {
   const size = canvas.width / 20;
-  const { x, y } = getRandomPosition({ canvas, size });
+  const { x, y } = getRandomPosition(canvas);
   return { x, y, size };
 }
 
