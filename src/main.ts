@@ -1,12 +1,9 @@
-import { loop } from './loop';
-import { createGame } from './game';
-import { watchControls } from './controls';
-import { hidePlayButton, playButton } from './menu';
+import { loop } from './core/loop';
+import { createGame } from './core/game';
+import { playButton } from './objects/menu';
 
 function init() {
-  hidePlayButton();
   const game = createGame();
-  watchControls(game);
   loop(game);
 }
 

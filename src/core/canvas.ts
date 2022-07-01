@@ -1,4 +1,4 @@
-import { Game } from './types';
+import { Game } from '../types';
 
 interface GetRandomPosition {
   canvas: HTMLCanvasElement;

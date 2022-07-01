@@ -1,28 +1,30 @@
-import { DIRECTIONS } from './controls';
-import { Game, Snake } from './types';
-import { setGameOver } from './game';
+import { DIRECTIONS } from '../core/controls';
+import { Game } from '../types';
+import { setGameOver } from '../core/game';
 
-export function createSnake() {
-  const size = 25;
+export function createSnake(canvas: HTMLCanvasElement) {
+  const size = canvas.width / 20;
   const x = size * 2;
   const y = size * 2;
+
   const tail = [
     { y, x: x - size * 3 },
     { y, x: x - size * 2 },
     { y, x: x - size },
   ];
-  const shouldGrow = false;
+
   return {
     x,
     y,
     size,
     tail,
-    shouldGrow,
+    shouldGrow: false,
   };
 }
 
 export function drawSnake(game: Game) {
-  const { snake, context } = game;
+  const { objects, context } = game;
+  const { snake } = objects;
 
   context.fillStyle = '#388538';
   context.fillRect(snake.x + 1, snake.y + 1, snake.size - 2, snake.size - 2);
@@ -32,7 +34,10 @@ export function drawSnake(game: Game) {
   });
 }
 
-function isWallCollision(snake: Snake, canvas: HTMLCanvasElement) {
+function isWallCollision(game: Game) {
+  const { objects, canvas } = game;
+  const { snake } = objects;
+
   return (
     snake.x < 0 ||
     snake.x > canvas.width - snake.size ||
@@ -41,12 +46,14 @@ function isWallCollision(snake: Snake, canvas: HTMLCanvasElement) {
   );
 }
 
-function isSelfCollision(snake: Snake) {
+function isSelfCollision(game: Game) {
+  const { snake } = game.objects;
   return snake.tail.some(position => snake.x === position.x && snake.y === position.y);
 }
 
 export function moveSnake(game: Game) {
-  const { snake, controls, canvas } = game;
+  const { objects, controls } = game;
+  const { snake } = objects;
 
   if (!snake.shouldGrow) {
     snake.tail.splice(0, 1);
@@ -60,22 +67,15 @@ export function moveSnake(game: Game) {
   snake.y += yDirection * snake.size;
   controls.lastKey = controls.currentKey;
 
-  if (isWallCollision(snake, canvas)) {
+  if (isWallCollision(game)) {
     setGameOver(game);
   }
 
-  if (isSelfCollision(snake)) {
+  if (isSelfCollision(game)) {
     setGameOver(game);
   }
-
-  return snake;
-}
-
-export function growSnake(snake: Snake): Snake {
-  snake.shouldGrow = true;
-  return snake;
 }
 
 export function updateSnake(game: Game) {
-  game.snake = moveSnake(game);
+  moveSnake(game);
 }

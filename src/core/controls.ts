@@ -1,4 +1,4 @@
-import { Direction, Game, Controls } from './types';
+import { Direction, Game, Controls } from '../types';
 
 export const KEY_LEFT = 37;
 export const KEY_UP = 38;

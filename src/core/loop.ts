@@ -1,6 +1,6 @@
 import { update } from './update';
 import { draw } from './draw';
-import { Game } from './types';
+import { Game } from '../types';
 
 const FPS = 1000 / 30;
 const SPEED = 2;
