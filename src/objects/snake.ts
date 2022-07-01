@@ -34,6 +34,11 @@ export function drawSnake(game: Game) {
   });
 }
 
+function isEatingApple(game: Game) {
+  const { snake, apple } = game.objects;
+  return snake.x === apple.x && snake.y === apple.y;
+}
+
 function isWallCollision(game: Game) {
   const { objects, canvas } = game;
   const { snake } = objects;
@@ -78,4 +83,8 @@ export function moveSnake(game: Game) {
 
 export function updateSnake(game: Game) {
   moveSnake(game);
+
+  if (isEatingApple(game)) {
+    game.objects.snake.shouldGrow = true;
+  }
 }

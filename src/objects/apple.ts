@@ -22,7 +22,6 @@ function isBeingEatenBySnake(game: Game) {
 
 export function updateApple(game: Game) {
   if (isBeingEatenBySnake(game)) {
-    game.objects.snake.shouldGrow = true;
     game.objects.apple = createApple(game.canvas);
   }
 }
