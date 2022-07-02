@@ -2,14 +2,15 @@ import { KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_UP } from './core/controls';
 
 export type Direction = typeof KEY_LEFT | typeof KEY_UP | typeof KEY_RIGHT | typeof KEY_DOWN;
 
+export interface Position {
+  x: number;
+  y: number;
+}
+
 export interface Controls {
   currentKey: Direction;
   lastKey: Direction;
-}
-
-interface Position {
-  x: number;
-  y: number;
+  touchStartPosition: Position | null;
 }
 
 interface Apple extends Position {

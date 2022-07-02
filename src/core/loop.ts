@@ -6,14 +6,14 @@ const FPS = 1000 / 30;
 const SPEED = 2;
 
 export function loop(game: Game) {
-  let startTime = 0;
+  let startTime: number | null = null;
   let time = 0;
   let lastInterval = 0;
 
   function callback(timestamp: number) {
     timestamp = Math.floor(timestamp);
 
-    if (!startTime) {
+    if (startTime === null) {
       startTime = timestamp;
       lastInterval = timestamp - startTime;
     }

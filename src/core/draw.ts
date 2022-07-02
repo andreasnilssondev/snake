@@ -1,8 +1,9 @@
 import { clearCanvas } from './canvas';
 import { drawApple } from '../objects/apple';
 import { drawSnake } from '../objects/snake';
-import { Game } from '../types';
 import { drawMenu } from '../objects/menu';
+import { drawControls } from './controls';
+import { Game } from '../types';
 
 export function draw(game: Game) {
   clearCanvas(game);
@@ -10,4 +11,5 @@ export function draw(game: Game) {
   drawSnake(game);
   drawApple(game);
   drawMenu(game);
+  drawControls(game);
 }
