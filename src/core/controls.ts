@@ -36,6 +36,14 @@ export function createControls() {
 }
 
 function getDirectionFromPositions(prevLocation: Position, newLocation: Position) {
+  // Not large enough to be interpreted as an intended direction change
+  if (
+    Math.abs(prevLocation.x - newLocation.x) < 20 &&
+    Math.abs(prevLocation.y - newLocation.y) < 20
+  ) {
+    return null;
+  }
+
   const isXDiffLargerThanY =
     Math.abs(prevLocation.x - newLocation.x) > Math.abs(prevLocation.y - newLocation.y);
 
@@ -82,16 +90,9 @@ export function updateControls(game: Game) {
       const direction = getDirectionFromPositions(controls.touchStartPosition, currentPosition);
 
       // This just shows what direction you're trying to go, it doesn't necessarily move the snake in that direction
-      if (
-        Math.abs(controls.touchStartPosition.x - currentPosition.x) < 20 &&
-        Math.abs(controls.touchStartPosition.y - currentPosition.y) < 20
-      ) {
-        controls.touchDirection = null;
-      } else {
-        controls.touchDirection = direction;
-      }
+      controls.touchDirection = direction;
 
-      if (oppositeKey[direction] !== controls.lastKey) {
+      if (direction !== null && oppositeKey[direction] !== controls.lastKey) {
         controls.currentKey = direction;
       }
     }
