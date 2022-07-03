@@ -81,8 +81,15 @@ export function updateControls(game: Game) {
       const currentPosition = { x, y };
       const direction = getDirectionFromPositions(controls.touchStartPosition, currentPosition);
 
-      // This just shows what direction you're trying to go, it doesn't necessarily work
-      controls.touchDirection = direction;
+      // This just shows what direction you're trying to go, it doesn't necessarily move the snake in that direction
+      if (
+        Math.abs(controls.touchStartPosition.x - currentPosition.x) < 20 &&
+        Math.abs(controls.touchStartPosition.y - currentPosition.y) < 20
+      ) {
+        controls.touchDirection = null;
+      } else {
+        controls.touchDirection = direction;
+      }
 
       if (oppositeKey[direction] !== controls.lastKey) {
         controls.currentKey = direction;
