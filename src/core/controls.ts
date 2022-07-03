@@ -117,10 +117,9 @@ export function drawControls(game: Game) {
   const { controls, context, canvas } = game;
 
   if (controls.touchStartPosition !== null) {
-    const multiplierX = controls.touchStartPosition.x / window.innerWidth;
-    const multiplierY = controls.touchStartPosition.y / window.innerHeight;
-    const circleX = canvas.width * multiplierX;
-    const circleY = canvas.width * multiplierY;
+    const scale = Number(canvas.getAttribute('data-scale'));
+    const circleX = (controls.touchStartPosition.x - canvas.clientLeft) / scale;
+    const circleY = (controls.touchStartPosition.y - canvas.clientTop) / scale;
     context.beginPath();
     context.fillStyle = 'rgba(50, 50, 150, 0.4)';
     context.arc(circleX, circleY, 50, 0, 2 * Math.PI);
@@ -129,7 +128,6 @@ export function drawControls(game: Game) {
     let x = circleX;
     let y = circleY;
 
-    // TODO: move some logic to update
     if (controls.touchDirection === KEY_RIGHT) {
       x += 20;
     } else if (controls.touchDirection === KEY_LEFT) {

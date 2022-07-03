@@ -24,7 +24,9 @@ export function watchCanvasSize() {
     const size = Math.min(maxWidth, maxHeight);
     canvasContainer.style.width = `${size}px`;
     canvasContainer.style.height = `${size}px`;
-    canvas.style.transform = `scale(${size / originalSize})`;
+    const scale = size / originalSize;
+    canvas.style.transform = `scale(${scale})`;
+    canvas.setAttribute('data-scale', scale.toString());
   }
 
   window.addEventListener('resize', resizeCanvas);
