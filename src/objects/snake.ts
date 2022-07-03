@@ -3,6 +3,7 @@ import { Game } from '../types';
 import { setGameOver } from '../core/game';
 
 export function createSnake(canvas: HTMLCanvasElement) {
+  const speed = 200; // How many ms to move one square
   const size = canvas.width / 20;
   const x = size * 2;
   const y = size * 2;
@@ -19,6 +20,8 @@ export function createSnake(canvas: HTMLCanvasElement) {
     size,
     tail,
     shouldGrow: false,
+    speed,
+    timeSinceLastUpdate: null,
   };
 }
 
@@ -73,18 +76,37 @@ export function moveSnake(game: Game) {
   controls.lastKey = controls.currentKey;
 
   if (isWallCollision(game)) {
+    console.log('setGameOver');
     setGameOver(game);
   }
 
   if (isSelfCollision(game)) {
+    console.log('setGameOver');
+
     setGameOver(game);
   }
 }
 
 export function updateSnake(game: Game) {
+  if (game.gameOver) {
+    return;
+  }
+
+  const { snake } = game.objects;
+
+  if (snake.timeSinceLastUpdate !== null) {
+    snake.timeSinceLastUpdate += game.fps;
+
+    if (snake.timeSinceLastUpdate < snake.speed) {
+      return;
+    }
+  }
+
   moveSnake(game);
 
   if (isEatingApple(game)) {
     game.objects.snake.shouldGrow = true;
   }
+
+  snake.timeSinceLastUpdate = 0; // TODO: Does it need to be more accurate?
 }

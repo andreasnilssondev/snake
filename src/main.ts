@@ -7,6 +7,13 @@ watchCanvasSize();
 
 function init() {
   const game = createGame();
+
+  function destroyGame() {
+    game.destroyed = true;
+  }
+
+  playButton.addEventListener('click', destroyGame, { once: true });
+
   loop(game);
 }
 

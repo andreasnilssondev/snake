@@ -30,6 +30,7 @@ export function createControls() {
     currentKey: KEY_RIGHT as Direction,
     lastKey: KEY_RIGHT as Direction,
     touchStartPosition: null,
+    watching: false,
   };
 }
 
@@ -52,7 +53,7 @@ function getDirectionFromPositions(prevLocation: Position, newLocation: Position
   return KEY_UP;
 }
 
-export function watchControls(game: Game) {
+export function updateControls(game: Game) {
   const { canvas, controls } = game;
 
   function handleKeydown(event: KeyboardEvent) {
@@ -84,10 +85,27 @@ export function watchControls(game: Game) {
     }
   }
 
-  document.addEventListener('keydown', handleKeydown);
-  canvas.addEventListener('touchstart', handleTouchStart);
-  canvas.addEventListener('touchend', handleTouchEnd);
-  canvas.addEventListener('touchmove', handleTouchMove);
+  function watch() {
+    document.addEventListener('keydown', handleKeydown);
+    canvas.addEventListener('touchstart', handleTouchStart);
+    canvas.addEventListener('touchend', handleTouchEnd);
+    canvas.addEventListener('touchmove', handleTouchMove);
+  }
+
+  function cleanup() {
+    document.removeEventListener('keydown', handleKeydown);
+    canvas.removeEventListener('touchstart', handleTouchStart);
+    canvas.removeEventListener('touchend', handleTouchEnd);
+    canvas.removeEventListener('touchmove', handleTouchMove);
+  }
+
+  if (!game.gameOver && !game.controls.watching) {
+    watch();
+  }
+
+  if (game.gameOver && game.controls.watching) {
+    cleanup();
+  }
 }
 
 export function drawControls(game: Game) {

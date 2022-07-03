@@ -8,6 +8,10 @@ export function createMenu() {
   };
 }
 
+function isPlayButtonVisible(game: Game) {
+  return game.objects.menu.playButton.style.display === 'block';
+}
+
 function showPlayButton(game: Game) {
   game.objects.menu.playButton.style.display = 'block';
 }
@@ -32,9 +36,9 @@ export function drawMenu(game: Game) {
 }
 
 export function updateMenu(game: Game) {
-  if (game.gameOver) {
+  if (game.gameOver && !isPlayButtonVisible(game)) {
     showPlayButton(game);
-  } else {
+  } else if (!game.gameOver && isPlayButtonVisible(game)) {
     hidePlayButton(game);
   }
 }

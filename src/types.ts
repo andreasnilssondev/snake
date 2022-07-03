@@ -11,6 +11,7 @@ export interface Controls {
   currentKey: Direction;
   lastKey: Direction;
   touchStartPosition: Position | null;
+  watching: boolean;
 }
 
 interface Apple extends Position {
@@ -21,6 +22,8 @@ interface Snake extends Position {
   size: number;
   tail: Position[];
   shouldGrow: boolean;
+  speed: number;
+  timeSinceLastUpdate: null | number;
 }
 
 interface Menu {
@@ -28,8 +31,10 @@ interface Menu {
 }
 
 export interface Game {
+  fps: number;
   canvas: HTMLCanvasElement;
   context: CanvasRenderingContext2D;
+  destroyed: boolean;
   gameOver: boolean;
   controls: Controls;
   objects: {

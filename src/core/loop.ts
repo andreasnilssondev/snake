@@ -2,33 +2,36 @@ import { update } from './update';
 import { draw } from './draw';
 import { Game } from '../types';
 
-const FPS = 1000 / 30;
-const SPEED = 2;
-
 export function loop(game: Game) {
-  let startTime: number | null = null;
-  let time = 0;
-  let lastInterval = 0;
+  let lastUpdate: number | null = null;
 
   function callback(timestamp: number) {
-    timestamp = Math.floor(timestamp);
-
-    if (startTime === null) {
-      startTime = timestamp;
-      lastInterval = timestamp - startTime;
-    }
-
-    time = timestamp - startTime;
-
-    if (time >= lastInterval + FPS * (10 / SPEED)) {
-      lastInterval = time;
-      update(game);
-      draw(game);
-    }
-
-    if (!game.gameOver) {
+    if (!game.destroyed) {
+      // call requestAnimationFrame before running the update logic so the browser can plan ahead
       requestAnimationFrame(callback);
     }
+
+    if (lastUpdate === null) {
+      // Handle the first update
+      lastUpdate = timestamp;
+      return;
+    }
+
+    const timeSinceLastUpdate = timestamp - lastUpdate;
+    let numberOfUpdates = Math.floor(timeSinceLastUpdate / game.fps);
+
+    // Run all updates before draw, as there may be catching up to do
+    // for example if it's slow or the browser tab is inactive
+    while (numberOfUpdates > 0) {
+      update(game);
+      numberOfUpdates -= 1;
+
+      if (numberOfUpdates === 0) {
+        lastUpdate = timestamp;
+      }
+    }
+
+    draw(game);
   }
 
   requestAnimationFrame(callback);
