@@ -1,7 +1,22 @@
-canvas {
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 100vh;
+}
+
+#canvas-container {
   display: block;
   margin: 0 auto;
-  border: 1px solid black;
+}
+
+#canvas {
+  background-color: transparent;
+  outline: 1px solid #000000;
+  transform-origin: 0 0;
 }
 
 #play-button {

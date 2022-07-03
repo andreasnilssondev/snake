@@ -18,7 +18,8 @@ function hidePlayButton(game: Game) {
 
 export function drawGameOver(game: Game) {
   const { context, canvas } = game;
-  context.font = '40px Arial';
+  const fontsize = canvas.width / 12;
+  context.font = `${fontsize}px Arial`;
   context.textAlign = 'center';
   context.fillStyle = '#888';
   context.fillText('Game over', canvas.width / 2, canvas.height / 3);
