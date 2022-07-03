@@ -30,6 +30,7 @@ export function createControls() {
     currentKey: KEY_RIGHT as Direction,
     lastKey: KEY_RIGHT as Direction,
     touchStartPosition: null,
+    touchDirection: null,
     watching: false,
   };
 }
@@ -69,6 +70,7 @@ export function updateControls(game: Game) {
 
   function handleTouchEnd() {
     controls.touchStartPosition = null;
+    controls.touchDirection = null;
   }
 
   function handleTouchMove(event: TouchEvent) {
@@ -78,6 +80,9 @@ export function updateControls(game: Game) {
       const { clientX: x, clientY: y } = event.touches[0];
       const currentPosition = { x, y };
       const direction = getDirectionFromPositions(controls.touchStartPosition, currentPosition);
+
+      // This just shows what direction you're trying to go, it doesn't necessarily work
+      controls.touchDirection = direction;
 
       if (oppositeKey[direction] !== controls.lastKey) {
         controls.currentKey = direction;
@@ -110,6 +115,7 @@ export function updateControls(game: Game) {
 
 export function drawControls(game: Game) {
   const { controls, context, canvas } = game;
+
   if (controls.touchStartPosition !== null) {
     const multiplierX = controls.touchStartPosition.x / window.innerWidth;
     const multiplierY = controls.touchStartPosition.y / window.innerHeight;
@@ -123,13 +129,14 @@ export function drawControls(game: Game) {
     let x = circleX;
     let y = circleY;
 
-    if (controls.currentKey === KEY_RIGHT) {
+    // TODO: move some logic to update
+    if (controls.touchDirection === KEY_RIGHT) {
       x += 20;
-    } else if (controls.currentKey === KEY_LEFT) {
+    } else if (controls.touchDirection === KEY_LEFT) {
       x -= 20;
-    } else if (controls.currentKey === KEY_DOWN) {
+    } else if (controls.touchDirection === KEY_DOWN) {
       y += 20;
-    } else if (controls.currentKey === KEY_UP) {
+    } else if (controls.touchDirection === KEY_UP) {
       y -= 20;
     }
 

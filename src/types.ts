@@ -10,6 +10,7 @@ export interface Position {
 export interface Controls {
   currentKey: Direction;
   lastKey: Direction;
+  touchDirection: Direction | null;
   touchStartPosition: Position | null;
   watching: boolean;
 }
