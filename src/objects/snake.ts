@@ -76,13 +76,10 @@ export function moveSnake(game: Game) {
   controls.lastKey = controls.currentKey;
 
   if (isWallCollision(game)) {
-    console.log('setGameOver');
     setGameOver(game);
   }
 
   if (isSelfCollision(game)) {
-    console.log('setGameOver');
-
     setGameOver(game);
   }
 }
