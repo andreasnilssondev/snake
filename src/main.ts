@@ -1,16 +1,15 @@
 import { loop } from './core/loop';
-import { createGame, destroyGame } from './core/game';
+import { destroyGame, initGame } from './core/game';
 import { playButton } from './objects/menu';
 import { watchCanvasSize } from './core/canvas';
 
+initGame();
 watchCanvasSize();
 
 function init() {
-  const game = createGame();
-
-  playButton.addEventListener('click', () => destroyGame(game), { once: true });
-
-  loop(game);
+  initGame();
+  playButton.addEventListener('click', destroyGame, { once: true });
+  loop();
 }
 
 playButton.addEventListener('click', init);

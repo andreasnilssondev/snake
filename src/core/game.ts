@@ -1,34 +1,32 @@
-import { getCanvas } from './canvas';
+import { canvas } from './canvas';
 import { createSnake } from '../objects/snake';
 import { createApple } from '../objects/apple';
 import { createControls } from './controls';
-import { Game } from '../types';
 import { createMenu } from '../objects/menu';
+import { Game } from '../types';
 
-export function createGame() {
-  const canvas = getCanvas();
+// You must run "initGame" before running any other code
+// This is exported as empty object to avoid circular import issues
+export const game = {} as Game;
 
-  const game = {
-    fps: 1000 / 30,
-    canvas,
-    context: canvas.getContext('2d')!,
-    gameOver: false,
-    destroyed: false,
-    controls: createControls(),
-    objects: {
-      snake: createSnake(canvas),
-      apple: createApple(canvas),
-      menu: createMenu(),
-    },
+export function initGame() {
+  game.fps = 1000 / 30;
+  game.canvas = canvas;
+  game.context = canvas.getContext('2d')!;
+  game.gameOver = false;
+  game.destroyed = false;
+  game.controls = createControls();
+  game.objects = {
+    snake: createSnake(),
+    apple: createApple(),
+    menu: createMenu(),
   };
-
-  return game;
 }
 
-export function setGameOver(game: Game) {
+export function setGameOver() {
   game.gameOver = true;
 }
 
-export function destroyGame(game: Game) {
+export function destroyGame() {
   game.destroyed = true;
 }

@@ -1,20 +1,17 @@
-import { Game } from '../types';
+import { game } from './game';
 
-export function getCanvas() {
-  return document.querySelector<HTMLCanvasElement>('#canvas')!;
-}
+export const canvas = document.querySelector<HTMLCanvasElement>('#canvas')!;
 
 function getCanvasContainer() {
   return document.getElementById('canvas-container')!;
 }
 
-export function clearCanvas(game: Game) {
-  const { context, canvas } = game;
+export function clearCanvas() {
+  const { context } = game;
   context.clearRect(0, 0, canvas.width, canvas.height);
 }
 
 export function watchCanvasSize() {
-  const canvas = getCanvas();
   const canvasContainer = getCanvasContainer();
   const originalSize = canvas.width;
 

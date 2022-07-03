@@ -1,4 +1,4 @@
-import { Game } from '../types';
+import { game } from '../core/game';
 
 export const playButton = document.getElementById('play-button') as HTMLButtonElement;
 
@@ -8,19 +8,19 @@ export function createMenu() {
   };
 }
 
-function isPlayButtonVisible(game: Game) {
+function isPlayButtonVisible() {
   return game.objects.menu.playButton.style.display === 'block';
 }
 
-function showPlayButton(game: Game) {
+function showPlayButton() {
   game.objects.menu.playButton.style.display = 'block';
 }
 
-function hidePlayButton(game: Game) {
+function hidePlayButton() {
   game.objects.menu.playButton.style.display = 'none';
 }
 
-export function drawGameOver(game: Game) {
+export function renderGameOver() {
   const { context, canvas } = game;
   const fontsize = canvas.width / 12;
   context.font = `${fontsize}px Arial`;
@@ -29,16 +29,16 @@ export function drawGameOver(game: Game) {
   context.fillText('Game over', canvas.width / 2, canvas.height / 3);
 }
 
-export function drawMenu(game: Game) {
+export function renderMenu() {
   if (game.gameOver) {
-    drawGameOver(game);
+    renderGameOver();
   }
 }
 
-export function updateMenu(game: Game) {
-  if (game.gameOver && !isPlayButtonVisible(game)) {
-    showPlayButton(game);
-  } else if (!game.gameOver && isPlayButtonVisible(game)) {
-    hidePlayButton(game);
+export function updateMenu() {
+  if (game.gameOver && !isPlayButtonVisible()) {
+    showPlayButton();
+  } else if (!game.gameOver && isPlayButtonVisible()) {
+    hidePlayButton();
   }
 }

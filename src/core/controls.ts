@@ -1,4 +1,5 @@
-import { Direction, Game, Position } from '../types';
+import { Direction, Position } from '../types';
+import { game } from './game';
 
 export const KEY_LEFT = 37;
 export const KEY_UP = 38;
@@ -62,7 +63,7 @@ function getDirectionFromPositions(prevLocation: Position, newLocation: Position
   return KEY_UP;
 }
 
-export function updateControls(game: Game) {
+export function updateControls() {
   const { canvas, controls } = game;
 
   function handleKeydown(event: KeyboardEvent) {
@@ -121,7 +122,7 @@ export function updateControls(game: Game) {
   }
 }
 
-export function drawControls(game: Game) {
+export function renderControls() {
   const { controls, context, canvas } = game;
 
   if (controls.touchStartPosition !== null) {

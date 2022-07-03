@@ -1,8 +1,8 @@
 import { DIRECTIONS } from '../core/controls';
-import { Game } from '../types';
-import { setGameOver } from '../core/game';
+import { game, setGameOver } from '../core/game';
 
-export function createSnake(canvas: HTMLCanvasElement) {
+export function createSnake() {
+  const { canvas } = game;
   const speed = 200; // How many ms to move one square
   const size = canvas.width / 20;
   const x = size * 2;
@@ -25,7 +25,7 @@ export function createSnake(canvas: HTMLCanvasElement) {
   };
 }
 
-export function drawSnake(game: Game) {
+export function renderSnake() {
   const { objects, context } = game;
   const { snake } = objects;
 
@@ -37,12 +37,12 @@ export function drawSnake(game: Game) {
   });
 }
 
-function isEatingApple(game: Game) {
+function isEatingApple() {
   const { snake, apple } = game.objects;
   return snake.x === apple.x && snake.y === apple.y;
 }
 
-function isWallCollision(game: Game) {
+function isWallCollision() {
   const { objects, canvas } = game;
   const { snake } = objects;
 
@@ -54,12 +54,12 @@ function isWallCollision(game: Game) {
   );
 }
 
-function isSelfCollision(game: Game) {
+function isSelfCollision() {
   const { snake } = game.objects;
   return snake.tail.some(position => snake.x === position.x && snake.y === position.y);
 }
 
-export function moveSnake(game: Game) {
+export function moveSnake() {
   const { objects, controls } = game;
   const { snake } = objects;
 
@@ -75,16 +75,16 @@ export function moveSnake(game: Game) {
   snake.y += yDirection * snake.size;
   controls.lastKey = controls.currentKey;
 
-  if (isWallCollision(game)) {
-    setGameOver(game);
+  if (isWallCollision()) {
+    setGameOver();
   }
 
-  if (isSelfCollision(game)) {
-    setGameOver(game);
+  if (isSelfCollision()) {
+    setGameOver();
   }
 }
 
-export function updateSnake(game: Game) {
+export function updateSnake() {
   if (game.gameOver) {
     return;
   }
@@ -99,9 +99,9 @@ export function updateSnake(game: Game) {
     }
   }
 
-  moveSnake(game);
+  moveSnake();
 
-  if (isEatingApple(game)) {
+  if (isEatingApple()) {
     game.objects.snake.shouldGrow = true;
   }
 
