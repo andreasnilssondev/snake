@@ -35,7 +35,7 @@ export interface Game {
   fps: number;
   canvas: HTMLCanvasElement;
   context: CanvasRenderingContext2D;
-  destroyed: boolean;
+  destroy: null | (() => void);
   gameOver: boolean;
   controls: Controls;
   objects: {

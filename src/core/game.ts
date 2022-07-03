@@ -14,19 +14,16 @@ export function initGame() {
   game.canvas = canvas;
   game.context = canvas.getContext('2d')!;
   game.gameOver = false;
-  game.destroyed = false;
+  game.destroy = null;
   game.controls = createControls();
   game.objects = {
     snake: createSnake(),
     apple: createApple(),
     menu: createMenu(),
   };
+  return game;
 }
 
 export function setGameOver() {
   game.gameOver = true;
-}
-
-export function destroyGame() {
-  game.destroyed = true;
 }

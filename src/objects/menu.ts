@@ -2,22 +2,24 @@ import { game } from '../core/game';
 
 export const playButton = document.getElementById('play-button') as HTMLButtonElement;
 
-export function createMenu() {
-  return {
-    playButton,
-  };
-}
-
 function isPlayButtonVisible() {
-  return game.objects.menu.playButton.style.display === 'block';
+  return playButton.style.display === 'block';
 }
 
 function showPlayButton() {
-  game.objects.menu.playButton.style.display = 'block';
+  playButton.style.display = 'block';
 }
 
 function hidePlayButton() {
-  game.objects.menu.playButton.style.display = 'none';
+  playButton.style.display = 'none';
+}
+
+export function createMenu() {
+  showPlayButton();
+
+  return {
+    playButton,
+  };
 }
 
 export function renderGameOver() {
