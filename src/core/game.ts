@@ -28,3 +28,7 @@ export function createGame() {
 export function setGameOver(game: Game) {
   game.gameOver = true;
 }
+
+export function destroyGame(game: Game) {
+  game.destroyed = true;
+}

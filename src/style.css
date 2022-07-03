@@ -5,12 +5,13 @@
 }
 
 body {
-  height: 100vh;
+  height: calc(100vh - 2rem);
+  margin: 1rem;
 }
 
 #canvas-container {
   display: block;
-  margin: 0 auto;
+  margin: 1rem auto;
 }
 
 #canvas {

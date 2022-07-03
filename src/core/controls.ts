@@ -109,15 +109,19 @@ export function updateControls(game: Game) {
 }
 
 export function drawControls(game: Game) {
-  const { controls, context } = game;
+  const { controls, context, canvas } = game;
   if (controls.touchStartPosition !== null) {
+    const multiplierX = controls.touchStartPosition.x / window.innerWidth;
+    const multiplierY = controls.touchStartPosition.y / window.innerHeight;
+    const circleX = canvas.width * multiplierX;
+    const circleY = canvas.width * multiplierY;
     context.beginPath();
     context.fillStyle = 'rgba(50, 50, 150, 0.4)';
-    context.arc(controls.touchStartPosition.x, controls.touchStartPosition.y, 50, 0, 2 * Math.PI);
+    context.arc(circleX, circleY, 50, 0, 2 * Math.PI);
     context.fill();
 
-    let { x } = controls.touchStartPosition;
-    let { y } = controls.touchStartPosition;
+    let x = circleX;
+    let y = circleY;
 
     if (controls.currentKey === KEY_RIGHT) {
       x += 20;
