@@ -10,6 +10,7 @@ import { Game } from '../types';
 export const game = {} as Game;
 
 export function initGame() {
+  game.isRunning = false;
   game.fps = 1000 / 30;
   game.canvas = canvas;
   game.context = canvas.getContext('2d')!;

@@ -32,6 +32,7 @@ interface Menu {
 }
 
 export interface Game {
+  isRunning: boolean;
   fps: number;
   canvas: HTMLCanvasElement;
   context: CanvasRenderingContext2D;

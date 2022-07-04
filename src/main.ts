@@ -14,10 +14,12 @@ function resetGame() {
 }
 
 function init() {
-  initGame();
-  loop();
-
-  playButton.addEventListener('click', resetGame);
+  if (game.isRunning) {
+    resetGame();
+  } else {
+    initGame();
+    loop();
+  }
 }
 
-playButton.addEventListener('click', init, { once: true });
+playButton.addEventListener('click', init);

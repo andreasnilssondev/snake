@@ -2,9 +2,7 @@ import { game } from './game';
 
 export const canvas = document.querySelector<HTMLCanvasElement>('#canvas')!;
 
-function getCanvasContainer() {
-  return document.getElementById('canvas-container')!;
-}
+const canvasContainer = document.getElementById('canvas-container')!;
 
 export function clearCanvas() {
   const { context } = game;
@@ -12,7 +10,6 @@ export function clearCanvas() {
 }
 
 export function watchCanvasSize() {
-  const canvasContainer = getCanvasContainer();
   const originalSize = canvas.width;
 
   function resizeCanvas() {
