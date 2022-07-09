@@ -14,7 +14,7 @@ export function watchCanvasSize() {
 
   function resizeCanvas() {
     const maxWidth = window.innerWidth - 20;
-    const maxHeight = window.innerHeight - 100;
+    const maxHeight = window.innerHeight - 40;
     const size = Math.min(maxWidth, maxHeight);
     canvasContainer.style.width = `${size}px`;
     canvasContainer.style.height = `${size}px`;
