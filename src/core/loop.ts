@@ -6,10 +6,8 @@ export function loop() {
   let lastUpdate: number | null = null;
 
   function callback(timestamp: number) {
-    if (game.destroy === null) {
-      // call requestAnimationFrame before running the update logic so the browser can plan ahead
-      requestAnimationFrame(callback);
-    }
+    // call requestAnimationFrame before running the update logic so the browser can plan ahead
+    requestAnimationFrame(callback);
 
     if (lastUpdate === null) {
       // Handle the first update
@@ -32,10 +30,6 @@ export function loop() {
     }
 
     render();
-
-    if (game.destroy !== null) {
-      game.destroy();
-    }
   }
 
   requestAnimationFrame(callback);

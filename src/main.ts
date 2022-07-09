@@ -8,6 +8,8 @@ watchCanvasSize();
 function init() {
   initGame();
   loop();
+
+  playButton.addEventListener('click', initGame);
 }
 
-playButton.addEventListener('click', init);
+playButton.addEventListener('click', init, { once: true });

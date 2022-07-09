@@ -46,7 +46,6 @@ export interface Game {
   fps: number;
   canvas: HTMLCanvasElement;
   context: CanvasRenderingContext2D;
-  destroy: null | (() => void);
   gameOver: boolean;
   objects: {
     snake: Snake;

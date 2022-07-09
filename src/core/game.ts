@@ -13,7 +13,6 @@ export const game: Game = {
   canvas,
   context: canvas.getContext('2d')!,
   gameOver: false,
-  destroy: null,
   objects: {
     apple,
     snake,
@@ -24,7 +23,7 @@ export const game: Game = {
 
 export function initGame() {
   game.isRunning = true;
-  // TODO: add cleanup functions if necessary
+  game.gameOver = false;
   Object.values(game.objects).forEach(({ init }) => init());
 }
 

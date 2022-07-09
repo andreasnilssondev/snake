@@ -30,6 +30,10 @@ export function render() {
 }
 
 export function update() {
+  if (game.gameOver) {
+    return;
+  }
+
   if (isBeingEatenBySnake()) {
     init();
   }

@@ -16,7 +16,7 @@ function hidePlayButton() {
 }
 
 export function init() {
-  showPlayButton();
+  hidePlayButton();
 
   Object.assign(game.objects.menu, { playButton });
 }
