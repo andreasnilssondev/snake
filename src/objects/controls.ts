@@ -116,8 +116,8 @@ export function init() {
     canvas.removeEventListener('touchmove', handleTouchMove);
   }
 
-  cleanup();
   watch();
+  game.objects.controls.cleanup = cleanup;
 }
 
 export function render() {

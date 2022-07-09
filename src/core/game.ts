@@ -24,7 +24,13 @@ export const game: Game = {
 export function initGame() {
   game.isRunning = true;
   game.gameOver = false;
-  Object.values(game.objects).forEach(({ init }) => init());
+  Object.values(game.objects).forEach(({ init, cleanup }) => {
+    if (cleanup) {
+      cleanup();
+    }
+
+    init();
+  });
 }
 
 export function setGameOver() {

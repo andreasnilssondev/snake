@@ -11,6 +11,7 @@ interface GameObject {
   init: () => void;
   render: () => void;
   update: () => void;
+  cleanup?: () => void;
 }
 
 export interface Apple extends GameObject {
