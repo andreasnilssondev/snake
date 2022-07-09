@@ -1,4 +1,4 @@
-import { KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_UP } from './core/controls';
+import { KEY_DOWN, KEY_LEFT, KEY_RIGHT, KEY_UP } from './objects/controls';
 
 export type Direction = typeof KEY_LEFT | typeof KEY_UP | typeof KEY_RIGHT | typeof KEY_DOWN;
 
@@ -7,19 +7,21 @@ export interface Position {
   y: number;
 }
 
-export interface Controls {
-  currentKey: Direction;
-  lastKey: Direction;
-  touchDirection: Direction | null;
-  touchStartPosition: Position | null;
-  watching: boolean;
+interface GameObject {
+  init: () => void;
+  render: () => void;
+  update: () => void;
 }
 
-interface Apple extends Position {
+export interface Apple extends GameObject {
+  x: number;
+  y: number;
   size: number;
 }
 
-interface Snake extends Position {
+export interface Snake extends GameObject {
+  x: number;
+  y: number;
   size: number;
   tail: Position[];
   shouldGrow: boolean;
@@ -27,8 +29,16 @@ interface Snake extends Position {
   timeSinceLastUpdate: null | number;
 }
 
-interface Menu {
+export interface Menu extends GameObject {
   playButton: HTMLButtonElement;
+}
+
+export interface Controls extends GameObject {
+  currentKey: Direction;
+  lastKey: Direction;
+  touchDirection: Direction | null;
+  touchStartPosition: Position | null;
+  watching: boolean;
 }
 
 export interface Game {
@@ -38,10 +48,10 @@ export interface Game {
   context: CanvasRenderingContext2D;
   destroy: null | (() => void);
   gameOver: boolean;
-  controls: Controls;
   objects: {
     snake: Snake;
     apple: Apple;
     menu: Menu;
+    controls: Controls;
   };
 }

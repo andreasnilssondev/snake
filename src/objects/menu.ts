@@ -1,4 +1,5 @@
 import { game } from '../core/game';
+import { Menu } from '../types';
 
 export const playButton = document.getElementById('play-button') as HTMLButtonElement;
 
@@ -14,12 +15,10 @@ function hidePlayButton() {
   playButton.style.display = 'none';
 }
 
-export function createMenu() {
+export function init() {
   showPlayButton();
 
-  return {
-    playButton,
-  };
+  Object.assign(game.objects.menu, { playButton });
 }
 
 export function renderGameOver() {
@@ -31,16 +30,18 @@ export function renderGameOver() {
   context.fillText('Game over', canvas.width / 2, canvas.height / 3);
 }
 
-export function renderMenu() {
-  if (game.gameOver) {
-    renderGameOver();
-  }
-}
-
-export function updateMenu() {
+export function update() {
   if (game.gameOver && !isPlayButtonVisible()) {
     showPlayButton();
   } else if (!game.gameOver && isPlayButtonVisible()) {
     hidePlayButton();
   }
 }
+
+export function render() {
+  if (game.gameOver) {
+    renderGameOver();
+  }
+}
+
+export const menu = { init, update, render } as Menu;

@@ -1,7 +1,8 @@
-import { DIRECTIONS } from '../core/controls';
+import { DIRECTIONS } from './controls';
 import { game, setGameOver } from '../core/game';
+import { Snake } from '../types';
 
-export function createSnake() {
+export function init() {
   const { canvas } = game;
   const speed = 200; // How many ms to move one square
   const size = canvas.width / 20;
@@ -14,7 +15,7 @@ export function createSnake() {
     { y, x: x - size },
   ];
 
-  return {
+  Object.assign(game.objects.snake, {
     x,
     y,
     size,
@@ -22,10 +23,10 @@ export function createSnake() {
     shouldGrow: false,
     speed,
     timeSinceLastUpdate: null,
-  };
+  });
 }
 
-export function renderSnake() {
+export function render() {
   const { objects, context } = game;
   const { snake } = objects;
 
@@ -60,8 +61,8 @@ function isSelfCollision() {
 }
 
 export function moveSnake() {
-  const { objects, controls } = game;
-  const { snake } = objects;
+  const { objects } = game;
+  const { snake, controls } = objects;
 
   if (!snake.shouldGrow) {
     snake.tail.splice(0, 1);
@@ -84,7 +85,7 @@ export function moveSnake() {
   }
 }
 
-export function updateSnake() {
+export function update() {
   if (game.gameOver) {
     return;
   }
@@ -107,3 +108,5 @@ export function updateSnake() {
 
   snake.timeSinceLastUpdate = 0; // TODO: Does it need to be more accurate?
 }
+
+export const snake = { init, update, render } as Snake;

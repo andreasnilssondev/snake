@@ -1,5 +1,5 @@
-import { Direction, Position } from '../types';
-import { game } from './game';
+import { Direction, Position, Controls } from '../types';
+import { game } from '../core/game';
 
 export const KEY_LEFT = 37;
 export const KEY_UP = 38;
@@ -24,16 +24,6 @@ const oppositeKey = {
 
 function isDirection(number: number): number is Direction {
   return VALID_KEYS.has(number);
-}
-
-export function createControls() {
-  return {
-    currentKey: KEY_RIGHT as Direction,
-    lastKey: KEY_RIGHT as Direction,
-    touchStartPosition: null,
-    touchDirection: null,
-    watching: false,
-  };
 }
 
 function getDirectionFromPositions(prevLocation: Position, newLocation: Position) {
@@ -63,8 +53,21 @@ function getDirectionFromPositions(prevLocation: Position, newLocation: Position
   return KEY_UP;
 }
 
-export function updateControls() {
-  const { canvas, controls } = game;
+export function update() {
+  // nothing to do here
+}
+
+export function init() {
+  Object.assign(game.objects.controls, {
+    currentKey: KEY_RIGHT as Direction,
+    lastKey: KEY_RIGHT as Direction,
+    touchStartPosition: null,
+    touchDirection: null,
+    watching: false,
+  });
+
+  const { canvas, objects } = game;
+  const { controls } = objects;
 
   function handleKeydown(event: KeyboardEvent) {
     if (isDirection(event.keyCode) && oppositeKey[event.keyCode] !== controls.lastKey) {
@@ -113,17 +116,13 @@ export function updateControls() {
     canvas.removeEventListener('touchmove', handleTouchMove);
   }
 
-  if (!game.gameOver && !game.controls.watching) {
-    watch();
-  }
-
-  if (game.gameOver && game.controls.watching) {
-    cleanup();
-  }
+  cleanup();
+  watch();
 }
 
-export function renderControls() {
-  const { controls, context, canvas } = game;
+export function render() {
+  const { context, canvas, objects } = game;
+  const { controls } = objects;
 
   if (controls.touchStartPosition !== null) {
     const scale = Number(canvas.getAttribute('data-scale'));
@@ -153,3 +152,5 @@ export function renderControls() {
     context.fill();
   }
 }
+
+export const controls = { init, update, render } as Controls;

@@ -1,13 +1,7 @@
 import { clearCanvas } from './canvas';
-import { renderApple } from '../objects/apple';
-import { renderSnake } from '../objects/snake';
-import { renderMenu } from '../objects/menu';
-import { renderControls } from './controls';
+import { game } from './game';
 
 export function render() {
   clearCanvas();
-  renderSnake();
-  renderApple();
-  renderMenu();
-  renderControls();
+  Object.values(game.objects).forEach(({ render: renderObject }) => renderObject());
 }

@@ -1,4 +1,5 @@
 import { game } from '../core/game';
+import { Apple } from '../types';
 
 export function getRandomPosition() {
   const { canvas } = game;
@@ -8,14 +9,19 @@ export function getRandomPosition() {
   return { x, y };
 }
 
-export function createApple() {
+function isBeingEatenBySnake() {
+  const { snake, apple } = game.objects;
+  return snake.x === apple.x && snake.y === apple.y;
+}
+
+export function init() {
   const { canvas } = game;
   const size = canvas.width / 20;
   const { x, y } = getRandomPosition();
-  return { x, y, size };
+  Object.assign(game.objects.apple, { x, y, size });
 }
 
-export function renderApple() {
+export function render() {
   const { objects, context } = game;
   const { apple } = objects;
   const { x, y, size } = apple;
@@ -23,13 +29,10 @@ export function renderApple() {
   context.fillRect(x, y, size, size);
 }
 
-function isBeingEatenBySnake() {
-  const { snake, apple } = game.objects;
-  return snake.x === apple.x && snake.y === apple.y;
-}
-
-export function updateApple() {
+export function update() {
   if (isBeingEatenBySnake()) {
-    game.objects.apple = createApple();
+    init();
   }
 }
+
+export const apple = { init, update, render } as Apple;

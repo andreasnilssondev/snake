@@ -1,11 +1,5 @@
-import { updateSnake } from '../objects/snake';
-import { updateApple } from '../objects/apple';
-import { updateMenu } from '../objects/menu';
-import { updateControls } from './controls';
+import { game } from './game';
 
 export function update() {
-  updateSnake();
-  updateApple();
-  updateMenu();
-  updateControls();
+  Object.values(game.objects).forEach(({ update: updateObject }) => updateObject());
 }

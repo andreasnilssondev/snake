@@ -3,7 +3,6 @@ import { render } from './render';
 import { game } from './game';
 
 export function loop() {
-  game.isRunning = true;
   let lastUpdate: number | null = null;
 
   function callback(timestamp: number) {
