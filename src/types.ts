@@ -18,6 +18,7 @@ export interface Apple extends GameObject {
   x: number;
   y: number;
   size: number;
+  img?: HTMLImageElement;
 }
 
 export interface Snake extends GameObject {

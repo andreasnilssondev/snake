@@ -1,5 +1,6 @@
 import { game } from '../core/game';
 import { Apple } from '../types';
+import appleImage from '../images/apple.png';
 
 export function getRandomPosition() {
   const { canvas } = game;
@@ -19,14 +20,27 @@ export function init() {
   const size = canvas.width / 20;
   const { x, y } = getRandomPosition();
   Object.assign(game.objects.apple, { x, y, size });
+
+  if (!game.objects.apple.img) {
+    const img = new Image();
+    img.src = appleImage;
+
+    img.addEventListener('load', () => {
+      game.objects.apple.img = img;
+    });
+  }
 }
 
 export function render() {
   const { objects, context } = game;
   const { apple } = objects;
-  const { x, y, size } = apple;
-  context.fillStyle = 'red';
-  context.fillRect(x, y, size, size);
+  const { x, y, size, img } = apple;
+
+  if (!img) {
+    return;
+  }
+
+  context.drawImage(img, x, y, size, size);
 }
 
 export function update() {
