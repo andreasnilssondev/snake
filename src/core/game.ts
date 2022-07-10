@@ -13,6 +13,7 @@ export const game: Game = {
   canvas,
   context: canvas.getContext('2d')!,
   gameOver: false,
+  canvasSize: 300,
   objects: {
     apple,
     snake,

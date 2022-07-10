@@ -125,9 +125,8 @@ export function render() {
   const { controls } = objects;
 
   if (controls.touchStartPosition !== null) {
-    const scale = Number(canvas.getAttribute('data-scale'));
-    const circleX = (controls.touchStartPosition.x - canvas.clientLeft) / scale;
-    const circleY = (controls.touchStartPosition.y - canvas.clientTop) / scale;
+    const circleX = controls.touchStartPosition.x - canvas.clientLeft;
+    const circleY = controls.touchStartPosition.y - canvas.clientTop;
     context.beginPath();
     context.fillStyle = 'rgba(50, 50, 150, 0.4)';
     context.arc(circleX, circleY, 50, 0, 2 * Math.PI);

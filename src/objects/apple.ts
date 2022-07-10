@@ -3,10 +3,10 @@ import { Apple } from '../types';
 import appleImage from '../images/apple.png';
 
 export function getRandomPosition() {
-  const { canvas } = game;
-  const size = canvas.width / 20;
-  const x = Math.floor(Math.random() * (canvas.width / size)) * size;
-  const y = Math.floor(Math.random() * (canvas.height / size)) * size;
+  const { canvasSize } = game;
+  const size = canvasSize / 20;
+  const x = Math.floor(Math.random() * (canvasSize / size)) * size;
+  const y = Math.floor(Math.random() * (canvasSize / size)) * size;
   return { x, y };
 }
 
@@ -16,8 +16,8 @@ function isBeingEatenBySnake() {
 }
 
 export function init() {
-  const { canvas } = game;
-  const size = canvas.width / 20;
+  const { canvasSize } = game;
+  const size = canvasSize / 20;
   const { x, y } = getRandomPosition();
   Object.assign(game.objects.apple, { x, y, size });
 

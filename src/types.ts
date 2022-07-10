@@ -49,6 +49,7 @@ export interface Game {
   canvas: HTMLCanvasElement;
   context: CanvasRenderingContext2D;
   gameOver: boolean;
+  canvasSize: number;
   objects: {
     snake: Snake;
     apple: Apple;

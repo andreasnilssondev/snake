@@ -2,28 +2,25 @@ import { game } from './game';
 
 export const canvas = document.querySelector<HTMLCanvasElement>('#canvas')!;
 
-const canvasContainer = document.getElementById('canvas-container')!;
-
 export function clearCanvas() {
-  const { context } = game;
-  context.clearRect(0, 0, canvas.width, canvas.height);
+  const { context, canvasSize } = game;
+  context.clearRect(0, 0, canvasSize, canvasSize);
+}
+
+function resizeCanvas() {
+  const maxWidth = window.innerWidth;
+  const maxHeight = window.innerHeight;
+  const size = Math.min(maxWidth, maxHeight);
+  const scale = size / game.canvasSize;
+  canvas.width = size;
+  canvas.height = size;
+
+  canvas.setAttribute('data-scale', scale.toString());
+  canvas.getContext('2d')!.setTransform(1, 0, 0, 1, 0, 0);
+  canvas.getContext('2d')!.scale(scale, scale); // game.context doesn't exist yet
 }
 
 export function watchCanvasSize() {
-  const originalSize = canvas.width;
-
-  function resizeCanvas() {
-    const maxWidth = window.innerWidth - 20;
-    const maxHeight = window.innerHeight - 40;
-    const size = Math.min(maxWidth, maxHeight);
-    canvasContainer.style.width = `${size}px`;
-    canvasContainer.style.height = `${size}px`;
-    const scale = size / originalSize;
-    canvas.style.transform = `scale(${scale})`;
-    canvas.setAttribute('data-scale', scale.toString());
-  }
-
   window.addEventListener('resize', resizeCanvas);
-
   resizeCanvas();
 }

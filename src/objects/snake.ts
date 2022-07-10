@@ -3,9 +3,9 @@ import { game, setGameOver } from '../core/game';
 import { Snake } from '../types';
 
 export function init() {
-  const { canvas } = game;
+  const { canvasSize } = game;
   const speed = 200; // How many ms to move one square
-  const size = canvas.width / 20;
+  const size = canvasSize / 20;
   const x = size * 2;
   const y = size * 2;
 
@@ -44,14 +44,14 @@ function isEatingApple() {
 }
 
 function isWallCollision() {
-  const { objects, canvas } = game;
+  const { objects, canvasSize } = game;
   const { snake } = objects;
 
   return (
     snake.x < 0 ||
-    snake.x > canvas.width - snake.size ||
+    snake.x > canvasSize - snake.size ||
     snake.y < 0 ||
-    snake.y > canvas.height - snake.size
+    snake.y > canvasSize - snake.size
   );
 }
 

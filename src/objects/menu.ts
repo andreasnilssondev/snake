@@ -22,12 +22,12 @@ export function init() {
 }
 
 export function renderGameOver() {
-  const { context, canvas } = game;
-  const fontsize = canvas.width / 12;
+  const { context, canvasSize } = game;
+  const fontsize = canvasSize / 12;
   context.font = `${fontsize}px Arial`;
   context.textAlign = 'center';
   context.fillStyle = '#888';
-  context.fillText('Game over', canvas.width / 2, canvas.height / 3);
+  context.fillText('Game over', canvasSize / 2, canvasSize / 3);
 }
 
 export function update() {
